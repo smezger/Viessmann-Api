@@ -3,7 +3,8 @@ name: Main Workflow
 on:
   push:
     branches:
-      - main
+      - master
+      - develop
   pull_request:
 
 jobs:
