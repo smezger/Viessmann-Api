@@ -1,15 +1,27 @@
-name: CI
+name: Main Workflow
+
 on:
   push:
-    branches: [ master ]
-jobs:
-  container-test-job:
-    runs-on: ubuntu-latest
-    container:
-      image: php:7.0-cli
-      env:
-        NODE_ENV: development
-    steps:
-      - name: Build phar
-        run: 
+    branches:
+      - main
+  pull_request:
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Add any setup steps required for your environment here
+
+      - name: Run createPhar.sh in Docker container
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/workspace \
+            -w /workspace \
+            php:7.0-cli \
+            bash script/createPhar.sh
+
+      # Add further steps if needed
