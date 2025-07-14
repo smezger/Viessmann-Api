@@ -20,8 +20,8 @@ jobs:
       - name: Run createPhar.sh in Docker container
         run: |
           docker run --rm \
-            -v ${{ github.workspace }}:/workspace \
-            -w /workspace \
+            -v "${{ github.workspace }}:${{ github.workspace }}" \
+            -w "${{ github.workspace }}" \
             php:7.0-cli \
             bash script/createPhar.sh
 
